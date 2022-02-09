@@ -53,6 +53,7 @@ def een_nul(lst):  # DONE
 
 # ===================[Opdracht 4 : Palindroom]===================
 def palindroom():
+    # TODO: Add | Functie Palindroom
     pass
 
 
@@ -102,6 +103,7 @@ def random_guess(geheim):  # DONE
 
 # ===================[Opdracht 8 : Compressie]===================
 def compressie():
+    # TODO: Add | Functie Compressie
     pass
 
 
