@@ -1,6 +1,5 @@
 from random import *
 # GitHub aanmaken en voeg DavidIsaacspaternostro@hu.nl toe
-# bruh
 
 
 def conversie_antwoord(getal):
