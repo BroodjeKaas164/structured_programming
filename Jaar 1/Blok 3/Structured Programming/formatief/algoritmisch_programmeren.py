@@ -1,5 +1,5 @@
 import random
-
+# bruh
 
 # ===================[Opdracht 1 : Piramide]===================
 def piramide_for(height):  # DONE
