@@ -52,9 +52,11 @@ def een_nul(lst):  # DONE
 
 
 # ===================[Opdracht 4 : Palindroom]===================
-def palindroom():
-    # TODO: Add | Functie Palindroom
-    pass
+def palindroom(woord):  # DONE | De manier van recursie ©D. Tjon-A-Njoek --- 2021-21-12
+    if len(woord) <= 1:
+        return True
+    else:
+        return woord[0] == woord[-1] and palindroom((woord[1:-1]))
 
 
 # ===================[Opdracht 5 : Sorteren]===================
@@ -109,7 +111,7 @@ def compressie():
 
 # ===================[Opdracht 9 : Cyclisch Verschuiven]===================
 def cyclisch_verschuiven(ch, n):
-    assigned_binary = bin(ord(ch))[2:]  # https://www.educative.io/edpresso/how-to-convert-string-to-binary-in-python
+    assigned_binary = bin(ord(ch))[2:]  # ©https://www.educative.io/edpresso/how-to-convert-string-to-binary-in-python
     for stap in range(abs(n)):
         if n > 0:
             assigned_binary += assigned_binary[:1]
@@ -186,7 +188,13 @@ def test_algoritmisch_programmeren():
         print(f'\x1b[32m3: Nullen en Enen | Serie \x1b[31m{x + 1}\x1b[32m | Voldoet aan eisen? \x1b[31m{een_nul(test_lst_nee)}')
 
     # ===================[Opdracht 4 : Palindroom]===================
-    # palindroom()
+    test_woord = input('\n\x1b[32m4: Palindroom | Voer een woord in: >>>:\x1b[31m')
+    print(f'\x1b[32m4: Palindroom | \x1b[31m{test_woord}')
+    state = palindroom(test_woord.lower())
+    if state:
+        print(f'\x1b[32m4: Palindroom | \x1b[31m{test_woord} is een palindroom!')
+    elif not state:
+        print(f'\x1b[32m4: Palindroom | \x1b[31m{test_woord} is helaas geen palindroom...')
 
     # ===================[Opdracht 5 : Sorteren]===================
     test_lst_sort = [random.choice(range(0, 101)) for x in range(40)]
