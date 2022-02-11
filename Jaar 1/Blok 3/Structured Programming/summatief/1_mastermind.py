@@ -64,7 +64,6 @@ def complex_algorithm(lst):
 def initialize(antwoord):
     # vraag = ['geel', 'wit', 'bruin', 'wit']
     # antwoord = ['groen', 'rood', 'groen', 'wit']
-    # print(f'\x1b[31m{vraag}\x1b[32m | \x1b[31m{antwoord}\x1b[32m | \x1b[31m{nakijken(antwoord, vraag)}\x1b[32m')
     print(f'Antwoord: {antwoord}')
     print(f'Teruggegeven: {simple_algorithm(antwoord)}')
 
