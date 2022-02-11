@@ -41,7 +41,13 @@ def nakijken(antwoorden_lst, keuze_lst):
     return beoordeling
 
 
-def keuze(lst):
+# TODO: Simple Algorithm uit Artikel van Groningen
+def simple_algorithm(lst):
+    pass
+
+
+# TODO: Complex Algorithm uit Artikel van Groningen
+def complex_algorithm(lst):
     pass
 
 
@@ -49,7 +55,6 @@ def initialize(antwoord, vraag):
     vraag = ['geel', 'wit', 'bruin', 'wit']
     antwoord = ['groen', 'rood', 'groen', 'wit']
     print(f'\x1b[31m{vraag}\x1b[32m | \x1b[31m{antwoord}\x1b[32m | \x1b[31m{nakijken(antwoord, vraag)}\x1b[32m')
-    pass
 
 
 if __name__ == '__main__':
@@ -57,3 +62,5 @@ if __name__ == '__main__':
     def_antwoord = geheim()  # ['wit', 'geel', 'geel', 'bruin']
     for c in range(20):
         initialize(def_antwoord, def_vraag)
+
+

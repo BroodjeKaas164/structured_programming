@@ -133,7 +133,8 @@ def fibonacci(lengte_lst, reeks):
 
 
 # ===================[Opdracht 11 : Caesar Cijfers]===================
-def caesar_cijfer():
+def caesar_cijfers():
+    # TODO: Add | Functie caesar_cijfer
     pass
 
 
@@ -230,7 +231,7 @@ def test_algoritmisch_programmeren():
     print(f'\x1b[32m10: Fibonacci | Reeks \x1b[31m{fibonacci(int(test_input_fib), [0, 1])}')
 
     # ===================[Opdracht 11 : Caesar Cijfers]===================
-    # caesar_cijfer()
+    # caesar_cijfers()
 
     # ===================[Opdracht 12 : FizzBuzz]===================
     print(f'\n\x1b[32m12: FizzBuzz | Reeks:\x1b[31m')
