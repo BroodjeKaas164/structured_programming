@@ -1,5 +1,4 @@
 from random import *
-# GitHub aanmaken en voeg DavidIsaacspaternostro@hu.nl toe
 
 
 def conversie():  # DONE
