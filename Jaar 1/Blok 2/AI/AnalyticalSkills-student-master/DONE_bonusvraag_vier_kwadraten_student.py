@@ -49,8 +49,8 @@ def vier_kwadraten(kwadraatsom):
                                             f"{kwadraatsom}, {getal1, getal2, getal3, getal4}, {(perf_counter() - starttijd) * 1000:.0f}ms\n")
                                         file.close()
                                 print(
-                                    f"Done! ({kwadraatsom}) = {getal1, getal2, getal3, getal4}^2 (Serie: {getal1} |"
-                                    f" Tijd: {(perf_counter() - starttijd) * 1000:.0f}ms)")
+                                    f"Done! \x1b[31m({kwadraatsom})\x1b[32m = \x1b[31m{getal1, getal2, getal3, getal4}^2\x1b[32m (Serie: \x1b[31m{getal1}\x1b[32m |"
+                                    f" Tijd: \x1b[31m{(perf_counter() - starttijd) * 1000:.0f}ms\x1b[32m)")
                                 return [getal1, getal2, getal3, getal4]
 
 
