@@ -2,7 +2,7 @@ import json
 
 # Copyright | Gerard Ovink 2021
 
-with open('/Jaar 1/Blok 1/Les- en Huiswerkopdrachten/Les 10/sporen.json', 'r') as json_file:
+with open('/jaar_1/blok_1/les_en_huiswerkopdrachten/Les 10/sporen.json', 'r') as json_file:
     data = json.load(json_file)
     stations = data["payload"]
     print(stations)

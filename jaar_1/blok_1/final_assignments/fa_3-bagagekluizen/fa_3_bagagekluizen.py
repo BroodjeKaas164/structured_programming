@@ -137,7 +137,7 @@ def kluis_teruggeven():
 
 
 def development_code():
-    """DONE: FA 3 - Bagagekluizen ; Keuzemenu binnen de applicatie"""
+    """DONE: fa_3-bagagekluizen ; Keuzemenu binnen de applicatie"""
     
     try:
         writefile(__my_test_file())

@@ -103,7 +103,7 @@ def kluis_teruggeven():
 
 
 def development_code():
-    """Dit is de hoofdfunctie voor de eindopdracht van FA 3 - Bagagekluizen"""
+    """Dit is de hoofdfunctie voor de eindopdracht van fa_3-bagagekluizen"""
     file = open(__my_test_file())
     stat = False
 
