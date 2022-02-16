@@ -1,13 +1,16 @@
+.gitignore
 /.idea/
 /.DS_Store
 Jaar 1/.DS_Store
 Jaar 1/Blok 1/.DS_Store
-.gitignore
 Jaar 1/Blok 1/Les- en Huiswerkopdrachten/.DS_Store
 Jaar 1/Blok 1/Final Assignments/.DS_Store
 Jaar 1/Blok 1/Textbook Problems/.DS_Store
 Jaar 1/Blok 2/.DS_Store
 Jaar 1/Blok 3/.DS_Store
 Jaar 1/Blok 3/Structured Programming/.DS_Store
-Jaar 1/Blok 1/Final Assignments/PROJA - NS Consumentenzuil/project/keys.py
 Jaar 1/Blok 2/AI/.DS_Store
+Jaar 1/Blok 1/Final Assignments/PROJA - NS Consumentenzuil/.DS_Store
+Jaar 1/Blok 1/Textbook Problems/H2 - Python Data Types/.DS_Store
+Jaar 1/Blok 1/Textbook Problems/H3 - Python Programmes/.DS_Store
+Jaar 1/Blok 1/Final Assignments/PROJA - NS Consumentenzuil/project/keys.py
