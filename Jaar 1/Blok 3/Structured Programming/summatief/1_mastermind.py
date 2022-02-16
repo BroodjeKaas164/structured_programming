@@ -110,7 +110,7 @@ def algorithm_simple(antwoord):
                                     elif beoordeling['wit'] == beoordeling['zwart'] == 0 and keuze_4 not in not_list:
                                         not_list.append(keuze_4)
 
-    # TODO: Modify | Kijk naar beoordeling en haal waarden weg waarvan zeker is dat deze niet vaker voorkomen
+    # TODO: MODIFY | Kijk naar beoordeling en haal waarden weg waarvan zeker is dat deze niet vaker voorkomen
     # TODO: ADD | Schaalbaar?
     pass
 
