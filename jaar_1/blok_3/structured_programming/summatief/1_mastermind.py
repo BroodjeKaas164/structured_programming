@@ -25,6 +25,11 @@ def _conversie(getal, translate_dict):  # DONE
         pass
 
 
+def _all_combinations():
+    # Gebruik hier Itertools
+    pass
+
+
 def reeks():  # DONE
     reeks_dict = [choice(range(1, 8)) for x in range(int(4))]
     return reeks_dict
@@ -81,10 +86,8 @@ def algorithm_user(antwoord):
                 tries_int += 1
                 for combination in range(len(tries_str)):
                     print(f'\x1b[31m{combination + 1}\x1b[32m | \x1b[31m{tries[combination]}\x1b[32m | \x1b[31m{tries_str[combination]}\x1b[32m | \x1b[31m{tries_secret[combination]}\x1b[32m')
-
         except ValueError as ve:
             pass
-
     return keuzes
 
 
@@ -103,7 +106,7 @@ def algorithm_simple(antwoord):
                                 if keuze_4 not in not_list:
                                     beoordeling = nakijken(antwoord, [keuze_1, keuze_2, keuze_3, keuze_4])
                                     setnumber += 1
-                                    combinations.append(f'{setnumber} | {[keuze_1, keuze_2, keuze_3, keuze_4]}')
+                                    combinations.append([keuze_1, keuze_2, keuze_3, keuze_4])  # f'{setnumber} | {[keuze_1, keuze_2, keuze_3, keuze_4]}'
                                     if beoordeling['zwart'] == 4:
                                         print(f'\x1b[32mGebruikte Combinaties | \x1b[31m{combinations}\x1b[32m')
                                         return _conversie(keuze_1, _dict_conversie()), _conversie(keuze_2, _dict_conversie()), _conversie(keuze_3, _dict_conversie()), _conversie(keuze_4, _dict_conversie())
@@ -111,6 +114,7 @@ def algorithm_simple(antwoord):
                                         not_list.append(keuze_4)
 
     # TODO: MODIFY | Kijk naar beoordeling en haal waarden weg waarvan zeker is dat deze niet vaker voorkomen
+    # TODO: MODIFY | De startwaarden werken niet volledig goed... [{not_lst}] is gedefinieerd, maar niet correct geimplementeerd in code
     # TODO: ADD | Schaalbaar?
     pass
 
