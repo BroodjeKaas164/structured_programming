@@ -42,39 +42,21 @@ def reeks():  # DONE
     Maakt een willekeurige gegenereerde lijst aan.
     :return: de geheime code
     """
-    reeks_dict = [choice(range(1, 8)) for x in range(int(4))]
+    reeks_dict = [choice(range(1, 8)) for _ in range(int(4))]
     return reeks_dict
 
 
 def nakijken(antwoorden_lst, keuze_lst):  # DONE
     zwart = wit = 0
     not_index = []
-
     for x in range(len(antwoorden_lst)):  # Eerst kijken voor 'goed'
-        try:
-            if antwoorden_lst[x] == keuze_lst[x]:
-                zwart += 1
-                not_index.append(x)
-        except ValueError as ve:
-            print(ve)
-        except IndexError as ie:
-            print(ie)
+        if antwoorden_lst[x] == keuze_lst[x]:
+            zwart += 1
+            not_index.append(x)
 
-    for x in range(len(antwoorden_lst)):  # Dan kijken voor 'andere plaats' zonder rekening te houden voor 'goed'
-        try:
-            if (keuze_lst[x] in antwoorden_lst) and (antwoorden_lst[x] != keuze_lst[x]) and (keuze_lst[x] not in not_index):  # and (antwoorden_lst.index(antwoorden_lst[x]) not in not_index) and ()
-                wit += 1
+    new_antwoorden_lst, new_keuze_lst = [antwoorden_lst[x] for x in range(len(antwoorden_lst)) if x not in not_index], [keuze_lst[x] for x in range(len(antwoorden_lst)) if x not in not_index]
+    for x in range(len(new_antwoorden_lst)):  # Dan kijken voor 'andere plaats' rekening houdend met 'goed'
+        if new_keuze_lst[x] in new_antwoorden_lst:
+            wit += 1
 
-                b = x
-                bruh = antwoorden_lst[x]
-                y = antwoorden_lst.index(antwoorden_lst[x])
-                pass
-        except ValueError as ve:
-            print(ve)
-        except IndexError as ie:
-            print(ie)
-
-    # TODO: MODIFY | In gevallen antw=[x, x, x, y] en kze=[y, x, x, x] geeft {zwart:2, wit:1} --> Moet zijn {zwart:2, wit:2}
-    # TODO: MODIFY | In gevallen antw=[a, b, c, d] en kze=[e, e, c, c] geeft {zwart:1, wit:1} --> Moet zijn {zwart:1, wit:0}
-    # TODO: MODIFY | In gevallen antw=[c, b, c, d] en kze=[e, e, c, c] geeft {zwart:1, wit:1} --> Moet zijn {zwart:1, wit:1}
     return {'zwart': zwart, 'wit': wit}
