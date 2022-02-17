@@ -78,9 +78,6 @@ def algorithm_simple(antwoord):
                                         return conversie(keuze_1), conversie(keuze_2), conversie(keuze_3), conversie(keuze_4)
                                     elif beoordeling['wit'] == beoordeling['zwart'] == 0 and keuze_4 not in not_list:
                                         not_list.append(keuze_4)
-
-    # TODO: MODIFY | Kijk naar beoordeling en haal waarden weg waarvan zeker is dat deze niet vaker voorkomen
-    # TODO: MODIFY | functie voegt alles toe aan not_lst...
     # TODO: ADD | Schaalbaar?
     pass
 
@@ -89,24 +86,40 @@ def algorithm_complex(antwoord, game_size):
     """
     "Expected Size Strategy"
     testcases
-        # antwoord = [4, 2, 3, 3]
-        # gok = [3, 5, 3, 5]
-        # antwoord = [1, 2, 3, 4]
-        # gok = [5, 5, 3, 3]
-        # antwoord = [7, 7, 7, 8]
-        # gok = [8, 7, 7, 7]
+        antwoord = [4, 2, 3, 3]
+        gok = [3, 5, 3, 5]
+        antwoord = [1, 2, 3, 4]
+        gok = [5, 5, 3, 3]
+        antwoord = [7, 7, 7, 8]
+        gok = [8, 7, 7, 7]
+        antwoord = [5, 7, 2, 4]
+        gok = [4, 4, 7, 7]
+        antwoord = [8, 8, 8, 8]
+        gok = [1, 2, 3, 4]
     """
     # TODO: ADD | Een Gevonden ingewikkelde algoritme (mag uit Artikel van Uni Groningen)
+    not_lst = []
 
-    # print(_all_combinations(len(_dict_conversie())))
-    g1, g2, g3 = randint(1, len(dict_conversie())), randint(1, len(dict_conversie())), randint(1, len(dict_conversie()))
-    for x in range(game_size):
-        gok = [g1, g1, g2, g3]
+    alles = all_combinations(len(dict_conversie()))
+    getal_1, getal_2, getal_3, getal_4 = randint(1, len(dict_conversie())), randint(1, len(dict_conversie())), randint(1, len(dict_conversie())), randint(1, len(dict_conversie()))
+
+    for x in range(1, game_size + 1):
+        gok = [getal_1, getal_1, getal_2, getal_3]
 
         beoordeling = nakijken(antwoord, gok)
 
-    g4 = randint(1, len(dict_conversie()))
-    return [g1, g2, g3, g4]
+        if beoordeling['wit'] == beoordeling['zwart'] == 0:
+            if getal_1 not in not_lst:
+                not_lst.append(getal_1)
+            if getal_2 not in not_lst:
+                not_lst.append(getal_2)
+            if getal_3 not in not_lst:
+                not_lst.append(getal_3)
+            if getal_4 not in not_lst:
+                not_lst.append(getal_4)
+        print(f'{x} | {gok} | {beoordeling}')
+
+    return [getal_1, getal_2, getal_3, getal_4]
 
 
 def algorithm_made(antwoord):
@@ -126,7 +139,7 @@ def initialize_cpu_cpu(antwoord, game_size):
     print(f'\x1b[32m\033[1mCorrecte Combinatie Str: \033[0m\x1b[31m{antwoord_str}')
 
     start = perf_counter()
-    print(f'\x1b[32mSimple Teruggegeven: \x1b[31m{algorithm_simple(antwoord)} \x1b[32min \x1b[31m{(perf_counter() - start) * 1000:.0f}ms')
+    # print(f'\x1b[32mSimple Teruggegeven: \x1b[31m{algorithm_simple(antwoord)} \x1b[32min \x1b[31m{(perf_counter() - start) * 1000:.0f}ms')
 
     start = perf_counter()
     print(f'\x1b[32mComplex Teruggegeven: \x1b[31m{algorithm_complex(antwoord, game_size)} \x1b[32min \x1b[31m{(perf_counter() - start) * 1000:.0f}ms')

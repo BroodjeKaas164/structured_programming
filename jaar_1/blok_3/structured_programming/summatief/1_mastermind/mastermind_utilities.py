@@ -32,7 +32,7 @@ def conversie(getal):  # DONE
 
 
 def all_combinations(amount):
-    # Itertools?
+    # Itertools verdiepen?
     amount += 1
     return [[g1, g2, g3, g4] for g1 in range(1, amount) for g2 in range(1, amount) for g3 in range(1, amount) for g4 in range(1, amount)]
 
@@ -56,7 +56,7 @@ def nakijken(antwoorden_lst, keuze_lst):  # DONE
 
     new_antwoorden_lst, new_keuze_lst = [antwoorden_lst[x] for x in range(len(antwoorden_lst)) if x not in not_index], [keuze_lst[x] for x in range(len(antwoorden_lst)) if x not in not_index]
     for x in range(len(new_antwoorden_lst)):  # Dan kijken voor 'andere plaats' rekening houdend met 'goed'
-        if new_keuze_lst[x] in new_antwoorden_lst:
+        if new_keuze_lst[x] in new_antwoorden_lst:  # and (new_keuze_lst.count(new_keuze_lst[x]) < wit)
             wit += 1
 
     return {'zwart': zwart, 'wit': wit}
