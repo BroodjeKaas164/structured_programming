@@ -21,7 +21,7 @@ def algorithm_user(antwoord, game_size):
         keuzes = []
         print(f'\x1b[32m{dict_conversie()}')
         try:
-            print(f'\x1b[32mAntwoord: >>> \x1b[31m{antwoord}\x1b[32m | \x1b[31m{antwoord_str}\x1b[32m')
+            # print(f'\x1b[32mAntwoord: >>> \x1b[31m{antwoord}\x1b[32m | \x1b[31m{antwoord_str}\x1b[32m')
             while True:
                 keuze_1 = input('\n\x1b[32mkeuze 1: >>> \x1b[31m')
                 keuze_2 = input('\x1b[32mkeuze 2: >>> \x1b[31m')
@@ -63,6 +63,7 @@ def algorithm_simple(antwoord):
     :param antwoord: de geheime combinatie waarnaar gewerkt moet worden.
     :return: tuple met resultaatwaarden die gelijkstaan aan het antwoord
     """
+    # TODO: ADD | Schaalbaar?
     opties = [x for x in range(len(dict_conversie()) + 1) if x != 0]
     combinations = []
     setnumber = 0
@@ -79,12 +80,10 @@ def algorithm_simple(antwoord):
                                     setnumber += 1
                                     combinations.append([keuze_1, keuze_2, keuze_3, keuze_4])
                                     if beoordeling['zwart'] == 4:
-                                        print(f'\x1b[32mSimple | \x1b[31m{combinations}\x1b[32m')
-                                        return conversie(keuze_1), conversie(keuze_2), conversie(keuze_3), conversie(keuze_4)
-                                    elif beoordeling['wit'] == beoordeling['zwart'] == 0 and keuze_4 not in not_list:
+                                        # print(f'\x1b[32mSimple: \x1b[31m{combinations}\x1b[32m')
+                                        return [conversie(keuze_1), conversie(keuze_2), conversie(keuze_3), conversie(keuze_4)]
+                                    elif (beoordeling['wit'] == beoordeling['zwart'] == 0) and (keuze_4 not in not_list):
                                         not_list.append(keuze_4)
-    # TODO: ADD | Schaalbaar?
-    pass
 
 
 def algorithm_complex(antwoord, game_size):
@@ -101,19 +100,37 @@ def algorithm_complex(antwoord, game_size):
         gok = [4, 4, 7, 7]
         antwoord = [8, 8, 8, 8]
         gok = [1, 2, 3, 4]
+        antwoord = [2, 3, 4, 1]
+        gok = [1, 2, 3, 4]
     Ik heb het spel eigenlijk nooit gespeeld... Dit zijn puur assumpties
     """
     # TODO: ADD | Een Gevonden ingewikkelde algoritme (mag uit Artikel van Uni Groningen)
     not_lst = []
+    might_lst = []
+    sure_lst = []
+    for poging in range(1, game_size + 1):
+        alles = all_combinations(len(dict_conversie()), not_lst)
+        getal_1, getal_2, getal_3, getal_4 = randint(1, len(dict_conversie())), randint(1, len(dict_conversie())), randint(1, len(dict_conversie())), randint(1, len(dict_conversie()))
+        if poging == 1:
+            getal_1 = getal_2 = randint(1, len(dict_conversie()))
+            getal_3 = randint(1, len(dict_conversie()))
+            getal_4 = randint(1, len(dict_conversie()))
 
-    alles = all_combinations(len(dict_conversie()))
-    getal_1, getal_2, getal_3, getal_4 = randint(1, len(dict_conversie())), randint(1, len(dict_conversie())), randint(1, len(dict_conversie())), randint(1, len(dict_conversie()))
+        elif 1 < poging <= game_size:
+            while getal_1 in not_lst:
+                getal_1 = randint(1, len(dict_conversie()))
+            while getal_2 in not_lst:
+                getal_2 = randint(1, len(dict_conversie()))
+            while getal_3 in not_lst:
+                getal_3 = randint(1, len(dict_conversie()))
+            while getal_4 in not_lst:
+                getal_4 = randint(1, len(dict_conversie()))
 
-    for x in range(1, game_size + 1):
-        gok = [getal_1, getal_1, getal_2, getal_3]
-
-        beoordeling = nakijken(antwoord, gok)
-
+        beoordeling = nakijken(antwoord, [getal_1, getal_2, getal_3, getal_4])
+        if beoordeling['zwart'] == 4:
+            return [getal_1, getal_2, getal_3, getal_4]
+        if beoordeling['wit'] == 4:
+            might_lst = [getal_1, getal_2, getal_3, getal_4]
         if beoordeling['wit'] == beoordeling['zwart'] == 0:
             if getal_1 not in not_lst:
                 not_lst.append(getal_1)
@@ -123,9 +140,9 @@ def algorithm_complex(antwoord, game_size):
                 not_lst.append(getal_3)
             if getal_4 not in not_lst:
                 not_lst.append(getal_4)
-        print(f'Complex: {x} | {gok} | {beoordeling}')
 
-    return [getal_1, getal_2, getal_3, getal_4]
+        print(f'\x1b[32mComplex: \x1b[31m{poging}\x1b[32m | \x1b[31m{[getal_1, getal_2, getal_3, getal_4]}\x1b[32m | \x1b[31m{beoordeling}\x1b[32m')
+    return None
 
 
 def algorithm_made(antwoord):
@@ -163,14 +180,14 @@ def initialize_user_cpu(antwoord, game_size):
 
 
 if __name__ == '__main__':
-    state = 'W'.lower()  # input(f'\n\n\n\n\x1b[32mPlay or Watch? \x1b[31m(P/W)\x1b[32m: >>> \x1b[31m').lower()
+    state = 'p'.lower()  # input(f'\n\n\n\n\x1b[32mPlay or Watch? \x1b[31m(P/W)\x1b[32m: >>> \x1b[31m').lower()
 
     if state == 'w':
         for c in range(1, 10 + 1):
             print(f'\n\x1b[32m\033[1mSpelnummer: \033[0m\x1b[31m{c}\x1b[32m')
-            def_antwoord = reeks()
+            def_antwoord = secret_reeks()
             initialize_cpu_cpu(def_antwoord, 10)
 
     elif state == 'p':
-        def_antwoord = reeks()
+        def_antwoord = secret_reeks()
         initialize_user_cpu(def_antwoord, 10)
