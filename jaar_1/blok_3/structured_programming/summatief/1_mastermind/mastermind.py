@@ -101,6 +101,7 @@ def algorithm_complex(antwoord, game_size):
         gok = [4, 4, 7, 7]
         antwoord = [8, 8, 8, 8]
         gok = [1, 2, 3, 4]
+    Ik heb het spel eigenlijk nooit gespeeld... Dit zijn puur assumpties
     """
     # TODO: ADD | Een Gevonden ingewikkelde algoritme (mag uit Artikel van Uni Groningen)
     not_lst = []
