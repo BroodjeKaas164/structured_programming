@@ -74,7 +74,7 @@ def algorithm_simple(antwoord):
                                     setnumber += 1
                                     combinations.append([keuze_1, keuze_2, keuze_3, keuze_4])
                                     if beoordeling['zwart'] == 4:
-                                        # print(f'\x1b[32mGebruikte Combinaties | \x1b[31m{combinations}\x1b[32m')
+                                        print(f'\x1b[32mSimple | \x1b[31m{combinations}\x1b[32m')
                                         return conversie(keuze_1), conversie(keuze_2), conversie(keuze_3), conversie(keuze_4)
                                     elif beoordeling['wit'] == beoordeling['zwart'] == 0 and keuze_4 not in not_list:
                                         not_list.append(keuze_4)
@@ -117,7 +117,7 @@ def algorithm_complex(antwoord, game_size):
                 not_lst.append(getal_3)
             if getal_4 not in not_lst:
                 not_lst.append(getal_4)
-        print(f'{x} | {gok} | {beoordeling}')
+        print(f'Complex: {x} | {gok} | {beoordeling}')
 
     return [getal_1, getal_2, getal_3, getal_4]
 
@@ -139,7 +139,7 @@ def initialize_cpu_cpu(antwoord, game_size):
     print(f'\x1b[32m\033[1mCorrecte Combinatie Str: \033[0m\x1b[31m{antwoord_str}')
 
     start = perf_counter()
-    # print(f'\x1b[32mSimple Teruggegeven: \x1b[31m{algorithm_simple(antwoord)} \x1b[32min \x1b[31m{(perf_counter() - start) * 1000:.0f}ms')
+    print(f'\x1b[32mSimple Teruggegeven: \x1b[31m{algorithm_simple(antwoord)} \x1b[32min \x1b[31m{(perf_counter() - start) * 1000:.0f}ms')
 
     start = perf_counter()
     print(f'\x1b[32mComplex Teruggegeven: \x1b[31m{algorithm_complex(antwoord, game_size)} \x1b[32min \x1b[31m{(perf_counter() - start) * 1000:.0f}ms')
