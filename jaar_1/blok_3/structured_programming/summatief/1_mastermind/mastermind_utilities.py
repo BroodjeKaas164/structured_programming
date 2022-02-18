@@ -58,7 +58,7 @@ def secret_reeks():  # DONE
     Maakt een willekeurige gegenereerde lijst aan.
     :return: de geheime code
     """
-    reeks_dict = [choice(range(1, 8)) for _ in range(int(4))]
+    reeks_dict = [choice(range(1, len(dict_conversie()))) for _ in range(int(4))]
     return reeks_dict
 
 
@@ -78,7 +78,7 @@ def nakijken(antwoorden_lst, keuze_lst):  # DONE
 
     new_antwoorden_lst, new_keuze_lst = [antwoorden_lst[x] for x in range(len(antwoorden_lst)) if x not in not_index], [keuze_lst[x] for x in range(len(antwoorden_lst)) if x not in not_index]
     for x in range(len(new_antwoorden_lst)):  # Dan kijken voor 'andere plaats' rekening houdend met 'goed'
-        if new_keuze_lst[x] in new_antwoorden_lst:  # and (new_keuze_lst.count(new_keuze_lst[x]) < wit)
+        if (new_keuze_lst[x] in new_antwoorden_lst) and (wit < antwoorden_lst.count(keuze_lst[x])):  # and (new_keuze_lst.count(new_keuze_lst[x]) < wit)
             wit += 1
 
     return {'zwart': zwart, 'wit': wit}

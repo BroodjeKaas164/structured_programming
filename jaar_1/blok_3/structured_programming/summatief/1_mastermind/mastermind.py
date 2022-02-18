@@ -1,3 +1,4 @@
+import time
 from time import perf_counter
 import itertools
 from mastermind_utilities import *
@@ -18,7 +19,6 @@ def algorithm_user(antwoord, game_size):
 
     print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
     while True:
-        keuzes = []
         print(f'\x1b[32m{dict_conversie()}')
         try:
             # print(f'\x1b[32mAntwoord: >>> \x1b[31m{antwoord}\x1b[32m | \x1b[31m{antwoord_str}\x1b[32m')
@@ -102,31 +102,22 @@ def algorithm_complex(antwoord, game_size):
         gok = [1, 2, 3, 4]
         antwoord = [2, 3, 4, 1]
         gok = [1, 2, 3, 4]
-    Ik heb het spel eigenlijk nooit gespeeld... Dit zijn puur assumpties
+    Het helpt ook niet dat ik het spel eigenlijk nooit heb gespeeld...
     """
-    # TODO: ADD | Een Gevonden ingewikkelde algoritme (mag uit Artikel van Uni Groningen)
+    # TODO: ADD | Een ander algoritme (mag uit Artikel van Uni Groningen)
     not_lst = []
     might_lst = []
     sure_lst = []
+    getal_1 = getal_2 = 1
+    getal_3 = getal_4 = 2
     for poging in range(1, game_size + 1):
         alles = all_combinations(len(dict_conversie()), not_lst)
-        getal_1, getal_2, getal_3, getal_4 = randint(1, len(dict_conversie())), randint(1, len(dict_conversie())), randint(1, len(dict_conversie())), randint(1, len(dict_conversie()))
-        if poging == 1:
-            getal_1 = getal_2 = randint(1, len(dict_conversie()))
-            getal_3 = randint(1, len(dict_conversie()))
-            getal_4 = randint(1, len(dict_conversie()))
-
-        elif 1 < poging <= game_size:
-            while getal_1 in not_lst:
-                getal_1 = randint(1, len(dict_conversie()))
-            while getal_2 in not_lst:
-                getal_2 = randint(1, len(dict_conversie()))
-            while getal_3 in not_lst:
-                getal_3 = randint(1, len(dict_conversie()))
-            while getal_4 in not_lst:
-                getal_4 = randint(1, len(dict_conversie()))
+        if 1 < poging < len(dict_conversie()):
+            getal_3 += 1
+            getal_4 += 1
 
         beoordeling = nakijken(antwoord, [getal_1, getal_2, getal_3, getal_4])
+        # time.sleep(1)
         if beoordeling['zwart'] == 4:
             return [getal_1, getal_2, getal_3, getal_4]
         if beoordeling['wit'] == 4:
@@ -180,13 +171,13 @@ def initialize_user_cpu(antwoord, game_size):
 
 
 if __name__ == '__main__':
-    state = 'p'.lower()  # input(f'\n\n\n\n\x1b[32mPlay or Watch? \x1b[31m(P/W)\x1b[32m: >>> \x1b[31m').lower()
+    state = 'w'  # input(f'\n\n\n\n\x1b[32mPlay or Watch? \x1b[31m(P/W)\x1b[32m: >>> \x1b[31m').lower()
 
     if state == 'w':
-        for c in range(1, 10 + 1):
-            print(f'\n\x1b[32m\033[1mSpelnummer: \033[0m\x1b[31m{c}\x1b[32m')
-            def_antwoord = secret_reeks()
-            initialize_cpu_cpu(def_antwoord, 10)
+        # for c in range(1, 10 + 1):
+        # print(f'\n\x1b[32m\033[1mSpelnummer: \033[0m\x1b[31m{c}\x1b[32m')
+        def_antwoord = secret_reeks()
+        initialize_cpu_cpu(def_antwoord, 10)
 
     elif state == 'p':
         def_antwoord = secret_reeks()
