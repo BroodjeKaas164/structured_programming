@@ -4,7 +4,12 @@ from mastermind_utilities import *
 
 
 def algorithm_user(antwoord, game_size):
-    # TODO: ADD | Gebruiker tegen Computer
+    """
+    Mastermind waarbij de gebruiker het spel zelf speelt.
+    :param antwoord: de geheime combinatie waarnaar gewerkt moet worden.
+    :param game_size: de grootte van het spel (het aantal beurten)
+    :return:
+    """
     antwoord_str = [conversie(x) for x in antwoord]
     tries_int = 0
     tries = []
@@ -134,6 +139,8 @@ Hieronder testen we de functies.
 
 
 def initialize_cpu_cpu(antwoord, game_size):
+    # TODO: ADD | TrueTest a.d.h.v. echte use-cases
+
     antwoord_str = [conversie(x) for x in antwoord]
     print(f'\x1b[32m\033[1mCorrecte Combinatie Int: \033[0m\x1b[31m{antwoord}')
     print(f'\x1b[32m\033[1mCorrecte Combinatie Str: \033[0m\x1b[31m{antwoord_str}')

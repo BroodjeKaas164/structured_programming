@@ -32,6 +32,11 @@ def conversie(getal):  # DONE
 
 
 def all_combinations(amount):
+    """
+    Genereert alle mogelijkheden voor het opgegeven aantal.
+    :param amount: het aantal verschillende kleuren.
+    :return: list met alle mogelijkheden
+    """
     # Itertools verdiepen?
     amount += 1
     return [[g1, g2, g3, g4] for g1 in range(1, amount) for g2 in range(1, amount) for g3 in range(1, amount) for g4 in range(1, amount)]
@@ -47,6 +52,12 @@ def reeks():  # DONE
 
 
 def nakijken(antwoorden_lst, keuze_lst):  # DONE
+    """
+    Beoordeelt de gegeven combinatie.
+    :param antwoorden_lst: de geheime combinatie waarnaar gewerkt moet worden.
+    :param keuze_lst: de opgegeven combinatie welke moet voldoen aan de geheime combinatie.
+    :return: Dictionary met de beoordeling.
+    """
     zwart = wit = 0
     not_index = []
     for x in range(len(antwoorden_lst)):  # Eerst kijken voor 'goed'
