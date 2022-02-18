@@ -174,10 +174,10 @@ if __name__ == '__main__':
     state = 'w'  # input(f'\n\n\n\n\x1b[32mPlay or Watch? \x1b[31m(P/W)\x1b[32m: >>> \x1b[31m').lower()
 
     if state == 'w':
-        # for c in range(1, 10 + 1):
-        # print(f'\n\x1b[32m\033[1mSpelnummer: \033[0m\x1b[31m{c}\x1b[32m')
-        def_antwoord = secret_reeks()
-        initialize_cpu_cpu(def_antwoord, 10)
+        for c in range(1, 20000 + 1):
+            print(f'\n\x1b[32m\033[1mSpelnummer: \033[0m\x1b[31m{c}\x1b[32m')
+            def_antwoord = secret_reeks()
+            initialize_cpu_cpu(def_antwoord, 10)
 
     elif state == 'p':
         def_antwoord = secret_reeks()
