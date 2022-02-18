@@ -115,6 +115,7 @@ def algorithm_complex(antwoord, game_size):
         mogelijk = all_combinations(len(dict_conversie()), not_lst)
 
         # TODO: Modify | Maak de correcte combinatie
+        # TODO: Modify | Grens van 4 doet moeilijk --> "4 in might_lst", moet zijn "4 in not_lst"
 
         if 1 < poging < len(dict_conversie()) - 1:
             getal_3 += 1
@@ -135,7 +136,6 @@ def algorithm_complex(antwoord, game_size):
         if beoordeling['wit'] == 4:
             might_lst = gok
             not_lst = [x for x in range(len(dict_conversie())) if x not in might_lst]
-            print('bruh')
 
         if beoordeling['wit'] > 0 or beoordeling['zwart'] > 0:
             if getal_1 not in might_lst and getal_1 not in not_lst:
@@ -169,7 +169,7 @@ def algorithm_complex(antwoord, game_size):
         print(f'\t\x1b[0mMisschien: \x1b[34m{might_lst}\x1b[32m')
         print(f'\t\x1b[0mOnmogelijk: \x1b[34m{not_lst}\x1b[32m')
 
-        print(f'\x1b[32mComplex: \x1b[31m{poging}\x1b[32m | \x1b[31m{[getal_1, getal_2, getal_3, getal_4]}\x1b[32m | \x1b[31m{beoordeling}\x1b[32m')
+        print(f'\x1b[32mComplex: \x1b[31m{poging}\x1b[32m | \x1b[31m{gok}\x1b[32m | \x1b[31m{beoordeling}\x1b[32m')
     return None
 
 
