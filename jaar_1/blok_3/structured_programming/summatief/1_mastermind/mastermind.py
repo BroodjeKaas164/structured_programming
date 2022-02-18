@@ -63,7 +63,6 @@ def algorithm_simple(antwoord):
     :param antwoord: de geheime combinatie waarnaar gewerkt moet worden.
     :return: tuple met resultaatwaarden die gelijkstaan aan het antwoord
     """
-    # TODO: ADD | Schaalbaar?
     opties = [x for x in range(len(dict_conversie()) + 1) if x != 0]
     combinations = []
     setnumber = 0
@@ -88,7 +87,6 @@ def algorithm_simple(antwoord):
 
 def algorithm_complex(antwoord, game_size):
     """
-    "Expected Size Strategy"
     testcases
         antwoord = [4, 2, 3, 3]
         gok = [3, 5, 3, 5]
@@ -102,26 +100,53 @@ def algorithm_complex(antwoord, game_size):
         gok = [1, 2, 3, 4]
         antwoord = [2, 3, 4, 1]
         gok = [1, 2, 3, 4]
+
     Het helpt ook niet dat ik het spel eigenlijk nooit heb gespeeld...
+
+    Bron: YouTube Search | "Mastermind Best Strategy"
+    Start met Strategie "Per Tweetal"
+    Vervolgt met Eigen Strategie
     """
-    # TODO: ADD | Een ander algoritme (mag uit Artikel van Uni Groningen)
     not_lst = []
     might_lst = []
-    sure_lst = []
     getal_1 = getal_2 = 1
     getal_3 = getal_4 = 2
     for poging in range(1, game_size + 1):
-        alles = all_combinations(len(dict_conversie()), not_lst)
-        if 1 < poging < len(dict_conversie()):
+        mogelijk = all_combinations(len(dict_conversie()), not_lst)
+
+        # TODO: Modify | Maak de correcte combinatie
+
+        if 1 < poging < len(dict_conversie()) - 1:
             getal_3 += 1
             getal_4 += 1
+        if poging > 6:
+            getal_3 -= 1
+            getal_4 -= 1
+        if len(dict_conversie()) - 2 <= poging <= len(dict_conversie()) + 2:
+            getal_1 += 1
+            getal_2 += 1
 
-        beoordeling = nakijken(antwoord, [getal_1, getal_2, getal_3, getal_4])
+        gok = [getal_1, getal_2, getal_3, getal_4]
+        beoordeling = nakijken(antwoord, gok)
         # time.sleep(1)
         if beoordeling['zwart'] == 4:
-            return [getal_1, getal_2, getal_3, getal_4]
+            return gok
+
         if beoordeling['wit'] == 4:
-            might_lst = [getal_1, getal_2, getal_3, getal_4]
+            might_lst = gok
+            not_lst = [x for x in range(len(dict_conversie())) if x not in might_lst]
+            print('bruh')
+
+        if beoordeling['wit'] > 0 or beoordeling['zwart'] > 0:
+            if getal_1 not in might_lst and getal_1 not in not_lst:
+                might_lst.append(getal_1)
+            if getal_2 not in might_lst and getal_2 not in not_lst:
+                might_lst.append(getal_2)
+            if getal_3 not in might_lst and getal_3 not in not_lst:
+                might_lst.append(getal_3)
+            if getal_4 not in might_lst and getal_4 not in not_lst:
+                might_lst.append(getal_4)
+
         if beoordeling['wit'] == beoordeling['zwart'] == 0:
             if getal_1 not in not_lst:
                 not_lst.append(getal_1)
@@ -131,6 +156,18 @@ def algorithm_complex(antwoord, game_size):
                 not_lst.append(getal_3)
             if getal_4 not in not_lst:
                 not_lst.append(getal_4)
+            not_lst.sort()
+
+        try:
+            for x in might_lst:
+                if x in not_lst:
+                    might_lst.remove(x)
+        except IndexError as ie:
+            pass
+        might_lst.sort()
+
+        print(f'\t\x1b[0mMisschien: \x1b[34m{might_lst}\x1b[32m')
+        print(f'\t\x1b[0mOnmogelijk: \x1b[34m{not_lst}\x1b[32m')
 
         print(f'\x1b[32mComplex: \x1b[31m{poging}\x1b[32m | \x1b[31m{[getal_1, getal_2, getal_3, getal_4]}\x1b[32m | \x1b[31m{beoordeling}\x1b[32m')
     return None
@@ -152,16 +189,16 @@ def initialize_cpu_cpu(antwoord, game_size):
 
     antwoord_str = [conversie(x) for x in antwoord]
     print(f'\x1b[32m\033[1mCorrecte Combinatie Int: \033[0m\x1b[31m{antwoord}')
-    print(f'\x1b[32m\033[1mCorrecte Combinatie Str: \033[0m\x1b[31m{antwoord_str}')
+    print(f'\x1b[32m\033[1mCorrecte Combinatie Str: \033[0m\x1b[31m{antwoord_str}\n')
 
     start = perf_counter()
-    print(f'\x1b[32mSimple Teruggegeven: \x1b[31m{algorithm_simple(antwoord)} \x1b[32min \x1b[31m{(perf_counter() - start) * 1000:.0f}ms')
+    print(f'\x1b[32mSimple Teruggegeven: \x1b[31m{algorithm_simple(antwoord)} \x1b[32min \x1b[31m{(perf_counter() - start) * 1000:.0f}ms\n')
 
     start = perf_counter()
-    print(f'\x1b[32mComplex Teruggegeven: \x1b[31m{algorithm_complex(antwoord, game_size)} \x1b[32min \x1b[31m{(perf_counter() - start) * 1000:.0f}ms')
+    print(f'\x1b[32mComplex Teruggegeven: \x1b[31m{algorithm_complex(antwoord, game_size)} \x1b[32min \x1b[31m{(perf_counter() - start) * 1000:.0f}ms\n')
 
     start = perf_counter()
-    print(f'\x1b[32mSelfmade Teruggegeven: \x1b[31m{algorithm_made(antwoord)} \x1b[32min \x1b[31m{(perf_counter() - start) * 1000:.0f}ms')
+    print(f'\x1b[32mSelfmade Teruggegeven: \x1b[31m{algorithm_made(antwoord)} \x1b[32min \x1b[31m{(perf_counter() - start) * 1000:.0f}ms\n')
 
 
 def initialize_user_cpu(antwoord, game_size):
@@ -174,7 +211,7 @@ if __name__ == '__main__':
     state = 'w'  # input(f'\n\n\n\n\x1b[32mPlay or Watch? \x1b[31m(P/W)\x1b[32m: >>> \x1b[31m').lower()
 
     if state == 'w':
-        for c in range(1, 20000 + 1):
+        for c in range(1, 1 + 1):
             print(f'\n\x1b[32m\033[1mSpelnummer: \033[0m\x1b[31m{c}\x1b[32m')
             def_antwoord = secret_reeks()
             initialize_cpu_cpu(def_antwoord, 10)
