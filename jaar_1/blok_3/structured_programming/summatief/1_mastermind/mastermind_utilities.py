@@ -6,6 +6,7 @@ def dict_conversie():  # DONE
     Dictionary met de verschillende kleuren
     :return: Dictionary
     """
+    """
     translatie = {
         '1': 'Rood',
         '2': 'Oranje',
@@ -15,6 +16,15 @@ def dict_conversie():  # DONE
         '6': 'Wit',
         '7': 'Bruin',
         '8': 'Zwart'
+    }
+    """
+    translatie = {
+        '1': 'Rood',
+        '2': 'Oranje',
+        '3': 'Geel',
+        '4': 'Groen',
+        '5': 'Blauw',
+        '6': 'Paars'
     }
     return translatie
 
@@ -31,18 +41,19 @@ def conversie(getal):  # DONE
         print(ke)
 
 
-def all_combinations(amount):
+def all_combinations(amount, not_lst):
     """
     Genereert alle mogelijkheden voor het opgegeven aantal.
     :param amount: het aantal verschillende kleuren.
+    :param not_lst: lijst met waarden waarvan zeker is dat deze het niet zijn.
     :return: list met alle mogelijkheden
     """
-    # Itertools verdiepen?
+    # Itertools verdiepen voor schaalbaarheid?
     amount += 1
-    return [[g1, g2, g3, g4] for g1 in range(1, amount) for g2 in range(1, amount) for g3 in range(1, amount) for g4 in range(1, amount)]
+    return [[g1, g2, g3, g4] for g1 in range(1, amount) if g1 not in not_lst for g2 in range(1, amount) if g2 not in not_lst for g3 in range(1, amount) if g3 not in not_lst for g4 in range(1, amount) if g4 not in not_lst]
 
 
-def reeks():  # DONE
+def secret_reeks():  # DONE
     """
     Maakt een willekeurige gegenereerde lijst aan.
     :return: de geheime code
