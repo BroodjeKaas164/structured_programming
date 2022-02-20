@@ -88,28 +88,31 @@ def algorithm_simple(antwoord):
 def algorithm_complex(antwoord, game_size):
     """
     testcases
-        antwoord = [4, 2, 3, 3]
-        gok = [3, 5, 3, 5]
-        antwoord = [1, 2, 3, 4]
-        gok = [5, 5, 3, 3]
-        antwoord = [7, 7, 7, 8]
-        gok = [8, 7, 7, 7]
-        antwoord = [5, 7, 2, 4]
-        gok = [4, 4, 7, 7]
-        antwoord = [8, 8, 8, 8]
-        gok = [1, 2, 3, 4]
-        antwoord = [2, 3, 4, 1]
-        gok = [1, 2, 3, 4]
+        Legacy
+            antwoord = [4, 2, 3, 3]
+            gok = [3, 5, 3, 5]
+            antwoord = [1, 2, 3, 4]
+            gok = [5, 5, 3, 3]
+            antwoord = [7, 7, 7, 8]
+            gok = [8, 7, 7, 7]
+            antwoord = [5, 7, 2, 4]
+            gok = [4, 4, 7, 7]
+            antwoord = [8, 8, 8, 8]
+            gok = [1, 2, 3, 4]
+            antwoord = [2, 3, 4, 1]
+            gok = [1, 2, 3, 4]
+
+        New
+            Alles naar might-lst:
+            [1, 3, 5, 2]
+            Alles naar might-lst
+            [5, 1, 3, 4]
 
     Het helpt ook niet dat ik het spel nooit heb gespeeld...
 
     Bron: YouTube Search | "Mastermind Best Strategy"
     Start met Strategie "Per Tweetal"
     Vervolgt met Eigen Strategie
-
-    Testcases:
-    Alles naar might-lst:
-        [1, 3, 5, 2]
     """
     not_lst = []
     might_lst = []
@@ -136,7 +139,7 @@ def algorithm_complex(antwoord, game_size):
         if len(dict_conversie()) - 2 <= poging <= len(dict_conversie()) + 2:
             getal_1 += 1
             getal_2 += 1
-        if poging > 7 and 1 < getal_1 <= len(dict_conversie()) and 1 < getal_2 <= len(dict_conversie()):
+        if poging > 8 and 1 < getal_1 <= len(dict_conversie()) and 1 < getal_2 <= len(dict_conversie()):
             getal_1 -= 1
             getal_2 -= 1
 
@@ -152,16 +155,6 @@ def algorithm_complex(antwoord, game_size):
             might_lst = gok
             not_lst = [x for x in range(len(dict_conversie())) if x not in might_lst]
 
-        if beoordeling['wit'] > 0 or beoordeling['zwart'] > 0:
-            if getal_1 not in might_lst and getal_1 not in not_lst:
-                might_lst.append(getal_1)
-            if getal_2 not in might_lst and getal_2 not in not_lst:
-                might_lst.append(getal_2)
-            if getal_3 not in might_lst and getal_3 not in not_lst:
-                might_lst.append(getal_3)
-            if getal_4 not in might_lst and getal_4 not in not_lst:
-                might_lst.append(getal_4)
-
         if beoordeling['wit'] == beoordeling['zwart'] == 0:
             if getal_1 not in not_lst:
                 not_lst.append(getal_1)
@@ -173,7 +166,18 @@ def algorithm_complex(antwoord, game_size):
                 not_lst.append(getal_4)
             not_lst.sort()
 
+        if beoordeling['wit'] > 0 or beoordeling['zwart'] > 0:
+            if getal_1 not in might_lst and getal_1 not in not_lst:
+                might_lst.append(getal_1)
+            if getal_2 not in might_lst and getal_2 not in not_lst:
+                might_lst.append(getal_2)
+            if getal_3 not in might_lst and getal_3 not in not_lst:
+                might_lst.append(getal_3)
+            if getal_4 not in might_lst and getal_4 not in not_lst:
+                might_lst.append(getal_4)
+
         try:
+            # might_lst = [x for x in range(1, len(dict_conversie()) + 1) if x not in not_lst]
             for x in might_lst:
                 if x in not_lst:
                     might_lst.remove(x)
@@ -184,15 +188,16 @@ def algorithm_complex(antwoord, game_size):
         not_geschiedenis.append(not_lst)
         might_geschiedenis.append(might_lst)
 
+        print(f'\x1b[32mComplex: \x1b[31m{poging}\x1b[32m | \x1b[31m{gok}\x1b[32m | \x1b[31m{beoordeling}\x1b[32m')
+
         print(f'\t\x1b[0mMisschien: \x1b[34m{might_lst}\x1b[32m')
         print(f'\t\x1b[0mKan Niet: \x1b[34m{not_lst}\x1b[32m')
-
-        print(f'\x1b[32mComplex: \x1b[31m{poging}\x1b[32m | \x1b[31m{gok}\x1b[32m | \x1b[31m{beoordeling}\x1b[32m')
 
     print(f'\n\x1b[32mGokken: \x1b[31m{gok_geschiedenis}\x1b[32m')
     print(f'\x1b[32mBeoordelingen: \x1b[31m{beoordeling_geschiedenis}\x1b[32m')
     print(f'\x1b[32mMisschien: \x1b[31m{might_geschiedenis}\x1b[32m')
     print(f'\x1b[32mKan Nietjes: \x1b[31m{not_geschiedenis}\x1b[32m\n')
+
     return None
 
 
