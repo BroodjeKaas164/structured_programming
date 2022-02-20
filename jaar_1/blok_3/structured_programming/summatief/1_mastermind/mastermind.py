@@ -101,34 +101,49 @@ def algorithm_complex(antwoord, game_size):
         antwoord = [2, 3, 4, 1]
         gok = [1, 2, 3, 4]
 
-    Het helpt ook niet dat ik het spel eigenlijk nooit heb gespeeld...
+    Het helpt ook niet dat ik het spel nooit heb gespeeld...
 
     Bron: YouTube Search | "Mastermind Best Strategy"
     Start met Strategie "Per Tweetal"
     Vervolgt met Eigen Strategie
+
+    Testcases:
+    Alles naar might-lst:
+        [1, 3, 5, 2]
     """
     not_lst = []
     might_lst = []
+
+    not_geschiedenis = []
+    might_geschiedenis = []
+    gok_geschiedenis = []
+    beoordeling_geschiedenis = []
+
     getal_1 = getal_2 = 1
     getal_3 = getal_4 = 2
     for poging in range(1, game_size + 1):
         mogelijk = all_combinations(len(dict_conversie()), not_lst)
 
         # TODO: Modify | Maak de correcte combinatie
-        # TODO: Modify | Grens van 4 doet moeilijk --> "4 in might_lst", moet zijn "4 in not_lst"
+        # TODO: Modify | Grens van 4 doet moeilijk --> "4 zit in might_lst", terwijl deze "4 in not_lst" moet zijn
 
         if 1 < poging < len(dict_conversie()) - 1:
             getal_3 += 1
             getal_4 += 1
-        if poging > 6:
+        if poging > 6 and 1 < getal_3 <= len(dict_conversie()) and 1 < getal_4 <= len(dict_conversie()):
             getal_3 -= 1
             getal_4 -= 1
         if len(dict_conversie()) - 2 <= poging <= len(dict_conversie()) + 2:
             getal_1 += 1
             getal_2 += 1
+        if poging > 7 and 1 < getal_1 <= len(dict_conversie()) and 1 < getal_2 <= len(dict_conversie()):
+            getal_1 -= 1
+            getal_2 -= 1
 
         gok = [getal_1, getal_2, getal_3, getal_4]
         beoordeling = nakijken(antwoord, gok)
+        gok_geschiedenis.append(gok)
+        beoordeling_geschiedenis.append(beoordeling)
         # time.sleep(1)
         if beoordeling['zwart'] == 4:
             return gok
@@ -166,10 +181,18 @@ def algorithm_complex(antwoord, game_size):
             pass
         might_lst.sort()
 
+        not_geschiedenis.append(not_lst)
+        might_geschiedenis.append(might_lst)
+
         print(f'\t\x1b[0mMisschien: \x1b[34m{might_lst}\x1b[32m')
-        print(f'\t\x1b[0mOnmogelijk: \x1b[34m{not_lst}\x1b[32m')
+        print(f'\t\x1b[0mKan Niet: \x1b[34m{not_lst}\x1b[32m')
 
         print(f'\x1b[32mComplex: \x1b[31m{poging}\x1b[32m | \x1b[31m{gok}\x1b[32m | \x1b[31m{beoordeling}\x1b[32m')
+
+    print(f'\n\x1b[32mGokken: \x1b[31m{gok_geschiedenis}\x1b[32m')
+    print(f'\x1b[32mBeoordelingen: \x1b[31m{beoordeling_geschiedenis}\x1b[32m')
+    print(f'\x1b[32mMisschien: \x1b[31m{might_geschiedenis}\x1b[32m')
+    print(f'\x1b[32mKan Nietjes: \x1b[31m{not_geschiedenis}\x1b[32m\n')
     return None
 
 
@@ -214,8 +237,8 @@ if __name__ == '__main__':
         for c in range(1, 1 + 1):
             print(f'\n\x1b[32m\033[1mSpelnummer: \033[0m\x1b[31m{c}\x1b[32m')
             def_antwoord = secret_reeks()
-            initialize_cpu_cpu(def_antwoord, 10)
+            initialize_cpu_cpu(def_antwoord, 12)
 
     elif state == 'p':
         def_antwoord = secret_reeks()
-        initialize_user_cpu(def_antwoord, 10)
+        initialize_user_cpu(def_antwoord, 12)
