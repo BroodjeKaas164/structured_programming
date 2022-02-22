@@ -87,7 +87,9 @@ def algorithm_simple(antwoord):
 
 def algorithm_complex(antwoord, game_size):
     """
-    testcases
+    Worst Case Strategy?
+
+    Testcases
         Legacy
             antwoord = [4, 2, 3, 3]
             gok = [3, 5, 3, 5]
@@ -107,12 +109,14 @@ def algorithm_complex(antwoord, game_size):
             [1, 3, 5, 2]
             Alles naar might-lst
             [5, 1, 3, 4]
+            Alles naar might-lst
+            [2, 1, 3, 5]
 
     Het helpt ook niet dat ik het spel nooit heb gespeeld...
 
-    Bron: YouTube Search | "Mastermind Best Strategy"
-    Start met Strategie "Per Tweetal"
-    Vervolgt met Eigen Strategie
+    Bron: YouTube Search | "Mastermind Best Strategy".
+    Start met Strategie "Per Tweetal" (mix van..)
+    Vervolgt met Eigen Strategie.
     """
     not_lst = []
     might_lst = []
@@ -130,18 +134,15 @@ def algorithm_complex(antwoord, game_size):
         # TODO: Modify | Maak de correcte combinatie
         # TODO: Modify | Grens van 4 doet moeilijk --> "4 zit in might_lst", terwijl deze "4 in not_lst" moet zijn
 
-        if 1 < poging < len(dict_conversie()) - 1:
+        if 1 < poging < len(dict_conversie()):
             getal_3 += 1
             getal_4 += 1
-        if poging > 6 and 1 < getal_3 <= len(dict_conversie()) and 1 < getal_4 <= len(dict_conversie()):
+        if poging > 7 and 1 < getal_3 <= len(dict_conversie()) and 1 < getal_4 <= len(dict_conversie()):
             getal_3 -= 1
             getal_4 -= 1
         if len(dict_conversie()) - 2 <= poging <= len(dict_conversie()) + 2:
             getal_1 += 1
             getal_2 += 1
-        if poging > 8 and 1 < getal_1 <= len(dict_conversie()) and 1 < getal_2 <= len(dict_conversie()):
-            getal_1 -= 1
-            getal_2 -= 1
 
         gok = [getal_1, getal_2, getal_3, getal_4]
         beoordeling = nakijken(antwoord, gok)
@@ -164,7 +165,7 @@ def algorithm_complex(antwoord, game_size):
                 not_lst.append(getal_3)
             if getal_4 not in not_lst:
                 not_lst.append(getal_4)
-            not_lst.sort()
+        not_lst.sort()
 
         if beoordeling['wit'] > 0 or beoordeling['zwart'] > 0:
             if getal_1 not in might_lst and getal_1 not in not_lst:
@@ -177,10 +178,12 @@ def algorithm_complex(antwoord, game_size):
                 might_lst.append(getal_4)
 
         try:
-            # might_lst = [x for x in range(1, len(dict_conversie()) + 1) if x not in not_lst]
+            might_lst = [x for x in range(1, len(dict_conversie()) + 1) if x not in not_lst]
+            """
             for x in might_lst:
                 if x in not_lst:
                     might_lst.remove(x)
+            """
         except IndexError as ie:
             pass
         might_lst.sort()
