@@ -1,6 +1,4 @@
-import time
 from time import perf_counter
-import itertools
 from mastermind_utilities import *
 
 
@@ -23,6 +21,7 @@ def algorithm_user(antwoord, game_size):
         try:
             # print(f'\x1b[32mAntwoord: >>> \x1b[31m{antwoord}\x1b[32m | \x1b[31m{antwoord_str}\x1b[32m')
             while True:
+                # TODO: MODIFY | Voeg de keuzes samen in 1 input!
                 keuze_1 = input('\n\x1b[32mkeuze 1: >>> \x1b[31m')
                 keuze_2 = input('\x1b[32mkeuze 2: >>> \x1b[31m')
                 keuze_3 = input('\x1b[32mkeuze 3: >>> \x1b[31m')
@@ -44,7 +43,7 @@ def algorithm_user(antwoord, game_size):
             if keuzes == antwoord:
                 break
             elif keuzes != antwoord:
-                # TODO: MODIFY | index range buiten dictionary van kleuren wordt alsnog toegevoegd aan de lijst met pogingen
+                # TODO: MODIFY | index buiten range dictionary van kleuren wordt alsnog toegevoegd aan de lijst met pogingen
                 tries_int += 1
                 for combination in range(len(tries_str)):
                     print(f'\x1b[31m{combination + 1}\x1b[32m | \x1b[31m{tries[combination]}\x1b[32m | \x1b[31m{tries_str[combination]}\x1b[32m | \x1b[31m{tries_secret[combination]}\x1b[32m')
@@ -53,7 +52,7 @@ def algorithm_user(antwoord, game_size):
                 print(f'\x1b[32mAntwoord: \x1b[31m{antwoord}\x1b[32m | \x1b[31m{antwoord_str}\x1b[32m')
                 break
         except ValueError as ve:
-            pass
+            print(ve)
     return keuzes
 
 
@@ -64,25 +63,17 @@ def algorithm_simple(antwoord):
     :return: tuple met resultaatwaarden die gelijkstaan aan het antwoord
     """
     opties = [x for x in range(len(dict_conversie()) + 1) if x != 0]
-    combinations = []
-    setnumber = 0
+    keuze_4 = 1
     not_list = []
-    for keuze_1 in opties:
-        if keuze_1 not in not_list:
-            for keuze_2 in opties:
-                if keuze_2 not in not_list:
-                    for keuze_3 in opties:
-                        if keuze_3 not in not_list:
-                            for keuze_4 in opties:
-                                if keuze_4 not in not_list:
-                                    beoordeling = nakijken(antwoord, [keuze_1, keuze_2, keuze_3, keuze_4])
-                                    setnumber += 1
-                                    combinations.append([keuze_1, keuze_2, keuze_3, keuze_4])
-                                    if beoordeling['zwart'] == 4:
-                                        # print(f'\x1b[32mSimple: \x1b[31m{combinations}\x1b[32m')
-                                        return [conversie(keuze_1), conversie(keuze_2), conversie(keuze_3), conversie(keuze_4)]
-                                    elif (beoordeling['wit'] == beoordeling['zwart'] == 0) and (keuze_4 not in not_list):
-                                        not_list.append(keuze_4)
+
+    # Zet waarden in not_lst
+    gok = [[keuze_1, keuze_2, keuze_3, keuze_4] for keuze_1 in opties if keuze_1 not in not_list for keuze_2 in opties if keuze_2 not in not_list for keuze_3 in opties if keuze_3 not in not_list for keuze_4 in opties if keuze_4 not in not_list]
+    beoordeling = [nakijken(antwoord, gok[x]) for x in range(len(gok))]
+    for x in beoordeling:
+        if x['zwart'] == 4:
+            return gok[beoordeling.index(x)]
+        if(x['wit'] == x['zwart'] == 0) and (keuze_4 not in not_list):
+            not_list.append(keuze_4)
 
 
 def algorithm_complex(antwoord, game_size):
@@ -105,11 +96,11 @@ def algorithm_complex(antwoord, game_size):
             gok = [1, 2, 3, 4]
 
         New
-            Alles naar might-lst:
+            Gooit alles naar might-lst:
             [1, 3, 5, 2]
-            Alles naar might-lst
+            Gooit alles naar might-lst:
             [5, 1, 3, 4]
-            Alles naar might-lst
+            Gooit alles naar might-lst:
             [2, 1, 3, 5]
 
     Het helpt ook niet dat ik het spel nooit heb gespeeld...
@@ -119,21 +110,15 @@ def algorithm_complex(antwoord, game_size):
     Vervolgt met Eigen Strategie.
     """
     not_lst = []
-    might_lst = []
-
-    not_geschiedenis = []
-    might_geschiedenis = []
-    gok_geschiedenis = []
-    beoordeling_geschiedenis = []
 
     getal_1 = getal_2 = 1
-    getal_3 = getal_4 = 2
+    getal_3 = getal_4 = 1
     for poging in range(1, game_size + 1):
         mogelijk = all_combinations(len(dict_conversie()), not_lst)
 
         # TODO: Modify | Maak de correcte combinatie
         # TODO: Modify | Grens van 4 doet moeilijk --> "4 zit in might_lst", terwijl deze "4 in not_lst" moet zijn
-
+        # Oude Statements
         if 1 < poging < len(dict_conversie()):
             getal_3 += 1
             getal_4 += 1
@@ -146,10 +131,8 @@ def algorithm_complex(antwoord, game_size):
 
         gok = [getal_1, getal_2, getal_3, getal_4]
         beoordeling = nakijken(antwoord, gok)
-        gok_geschiedenis.append(gok)
-        beoordeling_geschiedenis.append(beoordeling)
-        # time.sleep(1)
         if beoordeling['zwart'] == 4:
+            print(f'\x1b[32mComplex: Correct! \x1b[39m{poging}\x1b[32m | \x1b[39m{gok}\x1b[32m | \x1b[39m{beoordeling}\x1b[32m')
             return gok
 
         if beoordeling['wit'] == 4:
@@ -165,48 +148,104 @@ def algorithm_complex(antwoord, game_size):
                 not_lst.append(getal_3)
             if getal_4 not in not_lst:
                 not_lst.append(getal_4)
+
         not_lst.sort()
 
-        if beoordeling['wit'] > 0 or beoordeling['zwart'] > 0:
-            if getal_1 not in might_lst and getal_1 not in not_lst:
-                might_lst.append(getal_1)
-            if getal_2 not in might_lst and getal_2 not in not_lst:
-                might_lst.append(getal_2)
-            if getal_3 not in might_lst and getal_3 not in not_lst:
-                might_lst.append(getal_3)
-            if getal_4 not in might_lst and getal_4 not in not_lst:
-                might_lst.append(getal_4)
-
-        try:
-            might_lst = [x for x in range(1, len(dict_conversie()) + 1) if x not in not_lst]
-            """
-            for x in might_lst:
-                if x in not_lst:
-                    might_lst.remove(x)
-            """
-        except IndexError as ie:
-            pass
+        might_lst = [x for x in range(1, len(dict_conversie()) + 1) if x not in not_lst]
         might_lst.sort()
-
-        not_geschiedenis.append(not_lst)
-        might_geschiedenis.append(might_lst)
 
         print(f'\x1b[32mComplex: \x1b[31m{poging}\x1b[32m | \x1b[31m{gok}\x1b[32m | \x1b[31m{beoordeling}\x1b[32m')
 
-        print(f'\t\x1b[0mMisschien: \x1b[34m{might_lst}\x1b[32m')
-        print(f'\t\x1b[0mKan Niet: \x1b[34m{not_lst}\x1b[32m')
+        print(f'\t\x1b[0mMisschien: \x1b[33m{might_lst}\x1b[32m')
+        print(f'\t\x1b[0mKan Niet: \x1b[37m{not_lst}\x1b[32m')
 
-    print(f'\n\x1b[32mGokken: \x1b[31m{gok_geschiedenis}\x1b[32m')
-    print(f'\x1b[32mBeoordelingen: \x1b[31m{beoordeling_geschiedenis}\x1b[32m')
-    print(f'\x1b[32mMisschien: \x1b[31m{might_geschiedenis}\x1b[32m')
-    print(f'\x1b[32mKan Nietjes: \x1b[31m{not_geschiedenis}\x1b[32m\n')
-
-    return None
+    pass
 
 
-def algorithm_made(antwoord):
-    # TODO: ADD | Zelfgemaakte algoritme
-    return None
+def algorithm_made(antwoord, game_size):
+    not_lst = []
+    might_lst = []
+
+    # antwoord = [1, 3, 4, 2]
+
+    getal_1 = getal_2 = 1
+    getal_3 = getal_4 = 1
+    for poging in range(1, game_size + 1):
+        mogelijk = all_combinations(len(dict_conversie()), not_lst)
+
+        # TODO: Modify | Maak de correcte combinatie
+        # TODO: Modify | Grens van 4 doet moeilijk --> "4 zit in might_lst", terwijl deze "4 in not_lst" moet zijn
+
+        """
+        # Oude Statements
+        if 1 < poging < len(dict_conversie()):
+            getal_3 += 1
+            getal_4 += 1
+        if poging > 7 and 1 < getal_3 <= len(dict_conversie()) and 1 < getal_4 <= len(dict_conversie()):
+            getal_3 -= 1
+            getal_4 -= 1
+        if len(dict_conversie()) - 2 <= poging <= len(dict_conversie()) + 2:
+            getal_1 += 1
+            getal_2 += 1
+        """
+
+        # TODO: MODIFY | Als 1 instantie van getal 3 / getal 4 in antwoord staat --> niks toegevoegd aan not_lst
+        if 1 < poging < len(dict_conversie()) + 1:
+            getal_1 += 1
+            getal_2 += 1
+
+        if (len(dict_conversie()) - 2 <= poging <= len(dict_conversie()) or not not_lst) and (getal_3 < len(dict_conversie()) and getal_4 < len(dict_conversie())):
+            getal_3 += 1
+            getal_4 += 1
+
+        if not_lst:
+            dan_opties = dan_sws_niet = 0
+            opties = [x for x in range(len(dict_conversie())) if x not in not_lst and x != 0]
+            getal_1 = getal_2 = opties[dan_opties]
+            sws_niet = [x for x in range(len(dict_conversie())) if x not in might_lst and x != 0]
+            try:
+                getal_3 = getal_4 = sws_niet[dan_sws_niet]
+            except IndexError as ie:
+                pass
+            if len(opties) >= dan_opties:
+                dan_opties += 1
+            if len(sws_niet) >= dan_sws_niet:
+                dan_sws_niet += 1
+
+        gok = [getal_1, getal_2, getal_3, getal_4]
+        beoordeling = nakijken(antwoord, gok)
+        if beoordeling['zwart'] == 4:
+            print(f'\x1b[32mSelfmade: Correct! \x1b[39m{poging}\x1b[32m | \x1b[39m{gok}\x1b[32m | \x1b[39m{beoordeling}\x1b[32m')
+            return gok
+
+        if beoordeling['wit'] == 4:
+            might_lst = gok
+            not_lst = [x for x in range(len(dict_conversie())) if x not in might_lst]
+
+        if beoordeling['wit'] == beoordeling['zwart'] == 0:
+            if getal_1 not in not_lst:
+                not_lst.append(getal_1)
+            if getal_2 not in not_lst:
+                not_lst.append(getal_2)
+            """
+            if getal_3 not in not_lst:
+                not_lst.append(getal_3)
+            if getal_4 not in not_lst:
+                not_lst.append(getal_4)
+            """
+
+        not_lst.sort()
+
+        might_lst = [x for x in range(1, len(dict_conversie()) + 1) if x not in not_lst]
+        might_lst.sort()
+
+        print(f'\x1b[32mSelfmade: \x1b[31m{poging}\x1b[32m | \x1b[31m{gok}\x1b[32m | \x1b[31m{beoordeling}\x1b[32m')
+
+        print(f'\t\x1b[0mMisschien: \x1b[33m{might_lst}\x1b[32m')
+        print(f'\t\x1b[0mKan Niet: \x1b[37m{not_lst}\x1b[32m')
+
+    # return lambda x: algorithm_simple(antwoord)  # Wat is lambda? Zoek uit! Bron: Xander <achternaam> - V1A
+    print(antwoord)
 
 
 """
@@ -229,7 +268,7 @@ def initialize_cpu_cpu(antwoord, game_size):
     print(f'\x1b[32mComplex Teruggegeven: \x1b[31m{algorithm_complex(antwoord, game_size)} \x1b[32min \x1b[31m{(perf_counter() - start) * 1000:.0f}ms\n')
 
     start = perf_counter()
-    print(f'\x1b[32mSelfmade Teruggegeven: \x1b[31m{algorithm_made(antwoord)} \x1b[32min \x1b[31m{(perf_counter() - start) * 1000:.0f}ms\n')
+    print(f'\x1b[32mSelfmade Teruggegeven: \x1b[31m{algorithm_made(antwoord, game_size)} \x1b[32min \x1b[31m{(perf_counter() - start) * 1000:.0f}ms\n')
 
 
 def initialize_user_cpu(antwoord, game_size):
@@ -249,4 +288,4 @@ if __name__ == '__main__':
 
     elif state == 'p':
         def_antwoord = secret_reeks()
-        initialize_user_cpu(def_antwoord, 12)
+        initialize_user_cpu(def_antwoord, 10)

@@ -70,3 +70,17 @@ def nakijken(antwoorden_lst, keuze_lst):  # DONE
             wit += 1
 
     return {'zwart': zwart, 'wit': wit}
+
+
+"""
+==========================[Testfunctie]================================
+Hieronder testen we de functies.
+"""
+
+
+def test_mastermind_utilities():
+    pass
+
+
+if __name__ == '__Main__':
+    test_mastermind_utilities()
