@@ -72,6 +72,15 @@ def nakijken(antwoorden_lst, keuze_lst):  # DONE
     return {'zwart': zwart, 'wit': wit}
 
 
+def frequentie(freq, keuze_lst, beoordeling, not_lst):
+    for getal in keuze_lst:
+        if getal in freq and (beoordeling['zwart'] >= 1 or beoordeling['wit'] >= 1):
+            freq[getal] += 1
+        else:
+            freq[getal] = 1
+    return freq
+
+
 """
 ==========================[Testfunctie]================================
 Hieronder testen we de functies.
