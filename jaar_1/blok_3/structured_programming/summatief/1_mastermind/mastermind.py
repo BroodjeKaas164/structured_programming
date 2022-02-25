@@ -131,7 +131,7 @@ def algorithm_complex(antwoord, game_size):
             getal_1 += 1
             getal_2 += 1
 
-        time.sleep(0.5)
+
         gok = [getal_1, getal_2, getal_3, getal_4]
         beoordeling = nakijken(antwoord, gok)
         if beoordeling['zwart'] == 4:
@@ -223,7 +223,6 @@ def algorithm_made(antwoord, game_size):
             except IndexError as ie:
                 pass
 
-        time.sleep(0.5)
         gok = [getal_1, getal_2, getal_3, getal_4]
         beoordeling = nakijken(antwoord, gok)
         if beoordeling['zwart'] == 4:
@@ -250,7 +249,7 @@ def algorithm_made(antwoord, game_size):
 
         print(f'\x1b[32mSelfmade: \x1b[31m{poging}\x1b[32m | \x1b[31m{gok}\x1b[32m | \x1b[31m{beoordeling}\x1b[32m')
 
-        print(f'\t\x1b[0mFrequentie: \x1b[33m{frequentie(freq, gok, beoordeling, not_lst)}\x1b[32m')
+        print(f'\t\x1b[0mFrequentie: \x1b[34m{frequentie(freq, gok, beoordeling, not_lst)}\x1b[32m')
         print(f'\t\x1b[0mMisschien: \x1b[33m{might_lst}\x1b[32m')
         print(f'\t\x1b[0mKan Niet: \x1b[37m{not_lst}\x1b[32m')
 
@@ -291,12 +290,11 @@ if __name__ == '__main__':
     state = 'w'  # input(f'\n\n\n\n\x1b[32mPlay or Watch? \x1b[31m(P/W)\x1b[32m: >>> \x1b[31m').lower()
 
     if state == 'w':
-        for c in range(1, 1000 + 1):
+        for c in range(1, 1 + 1):
             print(f'\n\x1b[32m\033[1mSpelnummer: \033[0m\x1b[31m{c}\x1b[32m')
             def_antwoord = secret_reeks()
             # def_antwoord = [5, 1, 3, 3]
             initialize_cpu_cpu(def_antwoord, 12)
-            time.sleep(5)
 
 
     elif state == 'p':

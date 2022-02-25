@@ -40,6 +40,24 @@ def all_combinations(amount, not_lst):
     amount += 1
     return [[g1, g2, g3, g4] for g1 in range(1, amount) if g1 not in not_lst for g2 in range(1, amount) if g2 not in not_lst for g3 in range(1, amount) if g3 not in not_lst for g4 in range(1, amount) if g4 not in not_lst]
 
+def all_possible_combinations(previousGuess, boardFeedback, allPossibleGuesses):
+
+    """
+    previousGuess: de guess die je voor het laatst gezet hebt
+    boardFeedback: de feedback die je voor het laatst kreeg van het spel
+    allPossibleGuesses: een lange lijst met alle mogelijke solutions (die steeds kleiner wordt)
+    """
+    newAllPossibleGuesses = []  # De nieuwe lijst met alle mogelijke zetten.
+    for guess in allPossibleGuesses:
+
+        feedback = validatie(previousGuess, guess)
+
+        if feedback == boardFeedback:
+            # als de feedback van de mogelijke zet overeen komt met de echte feedback is deze zet dus nog mogelijk en mag je die bewaren
+            allPossibleGuesses.append(guess)
+
+    return allPossibleGuesses
+
 
 def secret_reeks():  # DONE
     """
